@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="sistema.ciu.JanPrincipal">
+  <grid id="27dc6" binding="panel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="481" height="386"/>
+    </constraints>
+    <properties>
+      <background color="-14738400"/>
+      <foreground color="-14738400"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <vspacer id="a14ee">
+        <constraints/>
+      </vspacer>
+      <component id="24d4c" class="javax.swing.JButton" binding="professorButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-12961222"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <focusable value="false"/>
+          <foreground color="-257"/>
+          <horizontalAlignment value="0"/>
+          <opaque value="true"/>
+          <text value="Professor"/>
+        </properties>
+      </component>
+      <component id="56378" class="javax.swing.JButton" binding="cursoButton">
+        <constraints/>
+        <properties>
+          <alignmentY value="0.0"/>
+          <background color="-12961222"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <focusable value="false"/>
+          <foreground color="-257"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <iconTextGap value="-1"/>
+          <opaque value="true"/>
+          <text value="Curso"/>
+        </properties>
+      </component>
+      <component id="7d3fd" class="javax.swing.JButton" binding="matriculaButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-12961222"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <focusable value="false"/>
+          <foreground color="-257"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <opaque value="true"/>
+          <text value="Matricula"/>
+        </properties>
+      </component>
+      <component id="38493" class="javax.swing.JButton" binding="alunoButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-12961222"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <focusable value="false"/>
+          <foreground color="-257"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <opaque value="true"/>
+          <text value="Aluno"/>
+        </properties>
+      </component>
+      <component id="1f6a6" class="javax.swing.JButton" binding="turmaButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-12961222"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <focusable value="false"/>
+          <foreground color="-257"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <opaque value="true"/>
+          <text value="Turma"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
