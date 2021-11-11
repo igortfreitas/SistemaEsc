@@ -15,7 +15,7 @@ public class AplGerenciarCurso {
 
     public void cadcurso(JTextField nomeTextfield, JTextField chTextfield) {
         //service.save(new Curso(nomeTextfield.getText().trim().replaceAll("\s+", " "), Integer.parseInt(chTextfield.getText())));
-        lstCursos.add(new Curso(nomeTextfield.getText().trim().replaceAll("\s+", " "), Integer.parseInt(chTextfield.getText())));
+        lstCursos.add(new Curso(nomeTextfield.getText().trim().replaceAll("\\s+", " "), Integer.parseInt(chTextfield.getText())));
         nomeTextfield.setText("");
         chTextfield.setText("");
     }
