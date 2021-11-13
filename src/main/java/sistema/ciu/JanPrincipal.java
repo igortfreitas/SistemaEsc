@@ -13,6 +13,7 @@ public class JanPrincipal extends JFrame {
     private JButton professorButton;
     private JButton turmaButton;
     private JButton matriculaButton;
+    private final ControladorPrincipal controladorPrincipal = new ControladorPrincipal();
 
     public JanPrincipal() {
         super("SistemaEscolar");
@@ -22,7 +23,10 @@ public class JanPrincipal extends JFrame {
         this.setContentPane(panel);
         this.setVisible(true);
 
-        cursoButton.addActionListener(e -> new ControladorPrincipal().cadcursogui());
+        cursoButton.addActionListener(e -> controladorPrincipal.exibirJanCadCurso());
+        alunoButton.addActionListener(e -> controladorPrincipal.exibirJanCadAluno());
+        professorButton.addActionListener(e -> controladorPrincipal.exibirJanCadProfessor());
+        turmaButton.addActionListener(e -> controladorPrincipal.exibirJanCadTurma());
 
     }
 

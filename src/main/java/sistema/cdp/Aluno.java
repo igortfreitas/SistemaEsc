@@ -1,6 +1,5 @@
 package sistema.cdp;
 
-
 import java.util.Date;
 
 public class Aluno extends Pessoa{

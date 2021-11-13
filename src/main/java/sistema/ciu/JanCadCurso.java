@@ -30,7 +30,9 @@ public class JanCadCurso extends JFrame {
 
     void cadastrar() {
         if (!nomeTextfield.getText().isEmpty() && !chTextfield.getText().isEmpty()) {
-            new ControladorPrincipal().cadcurso(nomeTextfield, chTextfield);
+            new ControladorPrincipal().cadastrarCurso(nomeTextfield.getText(), Integer.parseInt(chTextfield.getText()));
+            nomeTextfield.setText("");
+            chTextfield.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Campos não podem ficar vazios");
         }
