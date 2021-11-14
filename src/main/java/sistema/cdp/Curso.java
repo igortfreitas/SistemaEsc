@@ -19,6 +19,6 @@ public class Curso {
 
     @Override
     public String toString() {
-        return "Nome: "+nome+" CargaHorária: "+cargaHoraria;
+        return nome;
     }
 }

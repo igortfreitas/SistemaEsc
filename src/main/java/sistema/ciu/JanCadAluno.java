@@ -7,6 +7,8 @@ import sistema.cci.ControladorPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Date;
 
 public class JanCadAluno extends JFrame {
@@ -16,23 +18,42 @@ public class JanCadAluno extends JFrame {
     private JTextField cpfField;
     private JTextField nomeField;
     private JPanel panel;
+    private final ControladorPrincipal controladorPrincipal;
 
-    public JanCadAluno() {
+    public JanCadAluno(ControladorPrincipal controladorPrincipal) {
+
+        nomeField.setBorder(BorderFactory.createEmptyBorder());
+        cpfField.setBorder(BorderFactory.createEmptyBorder());
+        dataNascField.setBorder(BorderFactory.createEmptyBorder());
 
         cadastrarButton.addActionListener(e -> cadastrar());
+
+        this.controladorPrincipal = controladorPrincipal;
 
         this.setContentPane(panel);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(400, 400);
         this.setResizable(false);
         this.setVisible(true);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                exJanPrin();
+            }
+        });
     }
 
     private void cadastrar() {
-        new ControladorPrincipal().cadastrarAluno(nomeField.getText(), Date.valueOf(dataNascField.getText()), Long.parseLong(cpfField.getText()));
+        controladorPrincipal.cadastrarAluno(nomeField.getText(), Date.valueOf(dataNascField.getText()), Long.parseLong(cpfField.getText()));
         nomeField.setText("");
         dataNascField.setText("");
         cpfField.setText("");
+    }
+
+    public void exJanPrin() {
+        controladorPrincipal.exibirJanPrincipal();
+        this.dispose();
     }
 
     {
@@ -52,24 +73,34 @@ public class JanCadAluno extends JFrame {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setBackground(new Color(-14738400));
+        panel.setForeground(new Color(-14738400));
         cadastrarButton = new JButton();
+        cadastrarButton.setBackground(new Color(-12961222));
+        cadastrarButton.setBorderPainted(false);
+        cadastrarButton.setFocusPainted(false);
+        cadastrarButton.setFocusable(false);
+        cadastrarButton.setForeground(new Color(-257));
         cadastrarButton.setText("Cadastrar");
         panel.add(cadastrarButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         dataNascField = new JTextField();
-        panel.add(dataNascField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(dataNascField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         cpfField = new JTextField();
-        panel.add(cpfField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(cpfField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         nomeField = new JTextField();
-        panel.add(nomeField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(nomeField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         final JLabel label1 = new JLabel();
+        label1.setForeground(new Color(-257));
         label1.setText("Nome:");
         panel.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
+        label2.setForeground(new Color(-257));
         label2.setText("CPF:");
         panel.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label3 = new JLabel();
+        label3.setForeground(new Color(-257));
         label3.setText("Data Nascimento:");
         panel.add(label3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }

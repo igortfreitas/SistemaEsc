@@ -1,8 +1,11 @@
 package sistema.ciu;
 
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.PlainDocument;
+import java.text.ParseException;
 import java.util.regex.Pattern;
 
 public class Reg extends PlainDocument {
@@ -19,6 +22,15 @@ class Reg2 extends PlainDocument{
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         int t = getText(0, getLength()).length() + str.length();
         if (Pattern.matches("[0-9]+$", str) && t<=5) {
+            super.insertString(offs, str, a);
+        }
+    }
+}
+class Reg3 extends PlainDocument {
+    @Override
+    public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+        int t = getText(0, getLength()).length() + str.length();
+        if (Pattern.matches("[0-9]+$", str) && t <= 11) {
             super.insertString(offs, str, a);
         }
     }

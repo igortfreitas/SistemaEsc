@@ -5,6 +5,7 @@ import sistema.cci.ControladorPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
 
 public class JanPrincipal extends JFrame {
     private JPanel panel;
@@ -13,19 +14,23 @@ public class JanPrincipal extends JFrame {
     private JButton professorButton;
     private JButton turmaButton;
     private JButton matriculaButton;
-    private final ControladorPrincipal controladorPrincipal = new ControladorPrincipal();
 
-    public JanPrincipal() {
+    public JanPrincipal(ControladorPrincipal controladorPrincipal) {
         super("SistemaEscolar");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setResizable(false);
         this.setContentPane(panel);
-        this.setVisible(true);
 
         cursoButton.addActionListener(e -> controladorPrincipal.exibirJanCadCurso());
         alunoButton.addActionListener(e -> controladorPrincipal.exibirJanCadAluno());
-        professorButton.addActionListener(e -> controladorPrincipal.exibirJanCadProfessor());
+        professorButton.addActionListener(e -> {
+            try {
+                controladorPrincipal.exibirJanCadProfessor();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
         turmaButton.addActionListener(e -> controladorPrincipal.exibirJanCadTurma());
 
     }

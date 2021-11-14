@@ -11,8 +11,9 @@ import sistema.cgt.AplGerenciarPessoas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Date;
-import java.util.ArrayList;
 
 public class JanCadTurma extends JFrame {
 
@@ -24,21 +25,26 @@ public class JanCadTurma extends JFrame {
     private JTextField horarioField;
     private JComboBox<Professor> profComboBox;
     private JComboBox<Curso> cursoComboBox;
-    private final AplGerenciarCurso aplGerenciarCurso = new AplGerenciarCurso();
-    private final AplGerenciarPessoas aplGerenciarPessoas = new AplGerenciarPessoas();
-    DefaultComboBoxModel<Curso> cbmCurso = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel<Professor> cbmProfessor = new DefaultComboBoxModel<>();
+    private final ControladorPrincipal controladorPrincipal;
 
-    public JanCadTurma() {
+    public JanCadTurma(ControladorPrincipal controladorPrincipal) {
 
-        //cursoComboBox.setModel(cbmCurso);
-        //profComboBox.setModel(cbmProfessor);
-        teste();
+        DefaultComboBoxModel<Curso> cbmCurso = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Professor> cbmProfessor = new DefaultComboBoxModel<>();
 
-        //cbmCurso.addAll(aplGerenciarCurso.lstCursos);
-        //cbmProfessor.addAll(aplGerenciarPessoas.lstProfessor);
-        aplGerenciarPessoas.atualizaComboBoxProf(cbmProfessor);
-        aplGerenciarCurso.atualizaComboBoxCurso(cbmCurso);
+        cbmCurso.addAll(AplGerenciarCurso.lstCursos);
+        cbmProfessor.addAll(AplGerenciarPessoas.lstProfessor);
+
+        cursoComboBox.setModel(cbmCurso);
+        profComboBox.setModel(cbmProfessor);
+
+        horarioField.setBorder(BorderFactory.createEmptyBorder());
+        limiteAluField.setBorder(BorderFactory.createEmptyBorder());
+        dataFimField.setBorder(BorderFactory.createEmptyBorder());
+        dataIniField.setBorder(BorderFactory.createEmptyBorder());
+
+        profComboBox.setBorder(BorderFactory.createEmptyBorder());
+        cursoComboBox.setBorder(BorderFactory.createEmptyBorder());
 
         cadastrarButton.addActionListener(e -> cadastrar());
 
@@ -46,28 +52,27 @@ public class JanCadTurma extends JFrame {
         this.setContentPane(panel);
         this.setSize(400, 400);
         this.setResizable(false);
-        this.setVisible(true);
+        this.controladorPrincipal = controladorPrincipal;
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                exJanPrin();
+            }
+        });
     }
 
     private void cadastrar() {
-        new ControladorPrincipal().cadastrarTurma(horarioField.getText(), Integer.parseInt(limiteAluField.getText()), Date.valueOf(dataIniField.getText()), Date.valueOf(dataFimField.getText()), (Professor) profComboBox.getSelectedItem(), (Curso) cursoComboBox.getSelectedItem());
+        controladorPrincipal.cadastrarTurma(horarioField.getText(), Integer.parseInt(limiteAluField.getText()), Date.valueOf(dataIniField.getText()), Date.valueOf(dataFimField.getText()), (Professor) profComboBox.getSelectedItem(), (Curso) cursoComboBox.getSelectedItem());
         horarioField.setText("");
         limiteAluField.setText("");
         dataIniField.setText("");
         dataFimField.setText("");
     }
 
-    private void teste() {
-        for (int i = 0; i < aplGerenciarCurso.lstCursos.size(); i++) {
-            cursoComboBox.addItem(aplGerenciarCurso.lstCursos.get(i));
-            //cbmCurso.addElement(aplGerenciarCurso.lstCursos.get(i));
-            System.out.println(aplGerenciarCurso.lstCursos.get(i));
-        }
-        for (int j = 0; j < aplGerenciarPessoas.lstProfessor.size(); j++) {
-            profComboBox.addItem(aplGerenciarPessoas.lstProfessor.get(j));
-            //cbmProfessor.addElement(aplGerenciarPessoas.lstProfessor.get(j));
-            System.out.println(aplGerenciarPessoas.lstProfessor.get(j));
-        }
+    public void exJanPrin() {
+        controladorPrincipal.exibirJanPrincipal();
+        this.dispose();
     }
 
     {
@@ -87,40 +92,57 @@ public class JanCadTurma extends JFrame {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(8, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setBackground(new Color(-14738400));
         cadastrarButton = new JButton();
+        cadastrarButton.setBackground(new Color(-12961222));
+        cadastrarButton.setBorderPainted(false);
+        cadastrarButton.setFocusPainted(false);
+        cadastrarButton.setForeground(new Color(-257));
         cadastrarButton.setText("Cadastrar");
         panel.add(cadastrarButton, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         dataFimField = new JTextField();
-        panel.add(dataFimField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(dataFimField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         dataIniField = new JTextField();
-        panel.add(dataIniField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(dataIniField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         limiteAluField = new JTextField();
-        panel.add(limiteAluField, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(limiteAluField, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         horarioField = new JTextField();
-        panel.add(horarioField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(horarioField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         final JLabel label1 = new JLabel();
+        label1.setForeground(new Color(-257));
         label1.setText("Horário:");
         panel.add(label1, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
+        label2.setForeground(new Color(-257));
         label2.setText("Limite Alunos:");
         panel.add(label2, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label3 = new JLabel();
+        label3.setForeground(new Color(-257));
         label3.setText("Data Inicio:");
         panel.add(label3, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label4 = new JLabel();
+        label4.setForeground(new Color(-257));
         label4.setText("Data Fim:");
         panel.add(label4, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         profComboBox = new JComboBox();
+        profComboBox.setBackground(new Color(-12961222));
+        profComboBox.setForeground(new Color(-257));
         panel.add(profComboBox, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cursoComboBox = new JComboBox();
+        cursoComboBox.setBackground(new Color(-12961222));
+        cursoComboBox.setFocusable(true);
+        cursoComboBox.setForeground(new Color(-257));
+        cursoComboBox.setOpaque(false);
         panel.add(cursoComboBox, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label5 = new JLabel();
+        label5.setForeground(new Color(-257));
         label5.setText("Professor:");
         panel.add(label5, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label6 = new JLabel();
-        label6.setText("Curso");
+        label6.setForeground(new Color(-257));
+        label6.setText("Curso:");
         panel.add(label6, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 

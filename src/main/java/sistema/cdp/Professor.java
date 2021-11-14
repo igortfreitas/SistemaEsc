@@ -9,9 +9,4 @@ public class Professor extends Pessoa{
         super(nome, dataNasc, cpf);
         this.titulacao = titulacao;
     }
-
-    @Override
-    public String toString() {
-        return "Titulacao: "+titulacao;
-    }
 }
