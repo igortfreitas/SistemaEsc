@@ -1,6 +1,8 @@
 package sistema.cci;
 
-// Igor T Freitas e Kaua Victor
+/**
+ * @author Igor T Freitas e Kaua Victor
+ */
 
 import sistema.cdp.Curso;
 import sistema.cdp.Professor;
@@ -29,7 +31,7 @@ public class ControladorPrincipal {
     }
 
     public static void main(String[] args) {
-        UIManager.put("ComboBox.selectionBackground", new Color(58,58,58));
+        //UIManager.put("ComboBox.selectionBackground", new Color(58,58,58));
         new ControladorPrincipal();
     }
 
@@ -46,7 +48,7 @@ public class ControladorPrincipal {
         janCadCurso.setVisible(true);
         janPrincipal.setVisible(false);
     }
-    public void exibirJanCadAluno(){
+    public void exibirJanCadAluno() throws ParseException {
         if (janCadAluno == null) janCadAluno = new JanCadAluno(this);
         janCadAluno.setVisible(true);
         janPrincipal.setVisible(false);

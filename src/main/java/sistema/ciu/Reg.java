@@ -1,11 +1,8 @@
 package sistema.ciu;
 
-import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.PlainDocument;
-import java.text.ParseException;
 import java.util.regex.Pattern;
 
 public class Reg extends PlainDocument {

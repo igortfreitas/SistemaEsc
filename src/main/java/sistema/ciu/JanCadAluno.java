@@ -6,10 +6,12 @@ import com.intellij.uiDesigner.core.Spacer;
 import sistema.cci.ControladorPrincipal;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class JanCadAluno extends JFrame {
 
@@ -19,14 +21,28 @@ public class JanCadAluno extends JFrame {
     private JTextField nomeField;
     private JPanel panel;
     private final ControladorPrincipal controladorPrincipal;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final MaskFormatter dataFormatter = new MaskFormatter("####-##-##");
 
-    public JanCadAluno(ControladorPrincipal controladorPrincipal) {
+    public JanCadAluno(ControladorPrincipal controladorPrincipal) throws ParseException {
 
         nomeField.setBorder(BorderFactory.createEmptyBorder());
         cpfField.setBorder(BorderFactory.createEmptyBorder());
         dataNascField.setBorder(BorderFactory.createEmptyBorder());
 
-        cadastrarButton.addActionListener(e -> cadastrar());
+        cadastrarButton.addActionListener(e -> {
+            try {
+                cadastrar();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        nomeField.setDocument(new Reg());
+        cpfField.setDocument(new Reg3());
+
+        dataFormatter.setPlaceholderCharacter('0');
+        dataFormatter.install((JFormattedTextField) dataNascField);
 
         this.controladorPrincipal = controladorPrincipal;
 
@@ -44,8 +60,8 @@ public class JanCadAluno extends JFrame {
         });
     }
 
-    private void cadastrar() {
-        controladorPrincipal.cadastrarAluno(nomeField.getText(), Date.valueOf(dataNascField.getText()), Long.parseLong(cpfField.getText()));
+    private void cadastrar() throws ParseException {
+        controladorPrincipal.cadastrarAluno(nomeField.getText(), dateFormat.parse(dataNascField.getText()), Long.parseLong(cpfField.getText()));
         nomeField.setText("");
         dataNascField.setText("");
         cpfField.setText("");
@@ -85,8 +101,6 @@ public class JanCadAluno extends JFrame {
         panel.add(cadastrarButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        dataNascField = new JTextField();
-        panel.add(dataNascField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         cpfField = new JTextField();
         panel.add(cpfField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         nomeField = new JTextField();
@@ -103,6 +117,8 @@ public class JanCadAluno extends JFrame {
         label3.setForeground(new Color(-257));
         label3.setText("Data Nascimento:");
         panel.add(label3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        dataNascField = new JFormattedTextField();
+        panel.add(dataNascField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
     }
 
     /**

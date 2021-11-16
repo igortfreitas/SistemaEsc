@@ -23,7 +23,13 @@ public class JanPrincipal extends JFrame {
         this.setContentPane(panel);
 
         cursoButton.addActionListener(e -> controladorPrincipal.exibirJanCadCurso());
-        alunoButton.addActionListener(e -> controladorPrincipal.exibirJanCadAluno());
+        alunoButton.addActionListener(e -> {
+            try {
+                controladorPrincipal.exibirJanCadAluno();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
         professorButton.addActionListener(e -> {
             try {
                 controladorPrincipal.exibirJanCadProfessor();

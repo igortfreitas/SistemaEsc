@@ -12,8 +12,8 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class JanCadProfessor extends JFrame {
@@ -23,6 +23,8 @@ public class JanCadProfessor extends JFrame {
     private JTextField dataNascField;
     private JTextField cpfField;
     private JTextField nomeField;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final MaskFormatter dataFormatter = new MaskFormatter("####-##-##");
     private final ControladorPrincipal controladorPrincipal;
 
     public JanCadProfessor(ControladorPrincipal controladorPrincipal) throws ParseException {
@@ -34,9 +36,15 @@ public class JanCadProfessor extends JFrame {
 
         nomeField.setDocument(new Reg());
         cpfField.setDocument(new Reg3());
-        cadastrarButton.addActionListener(e -> cadastrar());
+        cadastrarButton.addActionListener(e -> {
+            try {
+                cadastrar();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        MaskFormatter dataFormatter = new MaskFormatter("####/##/##");
+        dataFormatter.setPlaceholderCharacter('0');
         dataFormatter.install((JFormattedTextField) dataNascField);
 
         this.controladorPrincipal = controladorPrincipal;
@@ -54,8 +62,8 @@ public class JanCadProfessor extends JFrame {
         });
     }
 
-    private void cadastrar() {
-        controladorPrincipal.cadastrarProfessor(nomeField.getText(), Date.valueOf(dataNascField.getText()), Long.parseLong(cpfField.getText()), titulacaoField.getText());
+    private void cadastrar() throws ParseException {
+        controladorPrincipal.cadastrarProfessor(nomeField.getText(), dateFormat.parse(dataNascField.getText()), Long.parseLong(cpfField.getText()), titulacaoField.getText());
         nomeField.setText("");
         dataNascField.setText("");
         cpfField.setText("");

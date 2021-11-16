@@ -15,7 +15,6 @@ public class AplGerenciarCurso {
 
     public void cadastrarCurso(String nome, int ch) {
         //service.save(new Curso(nome.trim().replaceAll("\\s+", " "), ch));
-        //lstCursos.add(new Curso(nome.trim().replaceAll("\\s+", " "), ch));
         lstCursos.add(new Curso(nome, ch));
     }
 
