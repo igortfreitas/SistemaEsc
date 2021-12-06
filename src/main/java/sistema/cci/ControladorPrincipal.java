@@ -31,7 +31,7 @@ public class ControladorPrincipal {
     }
 
     public static void main(String[] args) {
-        //UIManager.put("ComboBox.selectionBackground", new Color(58,58,58));
+        UIManager.put("ComboBox.selectionBackground", new Color(58,58,58));
         new ControladorPrincipal();
     }
 

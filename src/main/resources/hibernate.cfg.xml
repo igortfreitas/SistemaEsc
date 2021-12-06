@@ -11,5 +11,8 @@
         <property name="connection.password">Tma1110#</property>
         <property name="show_sql">true</property>
         <mapping class="sistema.cdp.Curso" />
+        <mapping class="sistema.cdp.Aluno" />
+        <mapping class="sistema.cdp.Professor" />
+        <mapping class="sistema.cdp.Pessoa" />
     </session-factory>
 </hibernate-configuration>
