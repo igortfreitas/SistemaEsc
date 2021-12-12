@@ -12,6 +12,7 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -28,6 +29,10 @@ public class JanCadProfessor extends JFrame {
     private final ControladorPrincipal controladorPrincipal;
 
     public JanCadProfessor(ControladorPrincipal controladorPrincipal) throws ParseException {
+
+        URL url = this.getClass().getResource("/ifescol.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(image);
 
         nomeField.setBorder(BorderFactory.createEmptyBorder());
         cpfField.setBorder(BorderFactory.createEmptyBorder());

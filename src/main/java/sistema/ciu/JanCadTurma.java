@@ -10,10 +10,13 @@ import sistema.cgt.AplGerenciarCurso;
 import sistema.cgt.AplGerenciarPessoas;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Date;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class JanCadTurma extends JFrame {
 
@@ -25,9 +28,12 @@ public class JanCadTurma extends JFrame {
     private JTextField horarioField;
     private JComboBox<Professor> profComboBox;
     private JComboBox<Curso> cursoComboBox;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final MaskFormatter dataFormatter = new MaskFormatter("####-##-##");
+    private final MaskFormatter dataFormatter2 = new MaskFormatter("####-##-##");
     private final ControladorPrincipal controladorPrincipal;
 
-    public JanCadTurma(ControladorPrincipal controladorPrincipal) {
+    public JanCadTurma(ControladorPrincipal controladorPrincipal) throws ParseException {
 
         DefaultComboBoxModel<Curso> cbmCurso = new DefaultComboBoxModel<>();
         DefaultComboBoxModel<Professor> cbmProfessor = new DefaultComboBoxModel<>();
@@ -38,6 +44,10 @@ public class JanCadTurma extends JFrame {
         cursoComboBox.setModel(cbmCurso);
         profComboBox.setModel(cbmProfessor);
 
+        URL url = this.getClass().getResource("/ifescol.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(image);
+
         horarioField.setBorder(BorderFactory.createEmptyBorder());
         limiteAluField.setBorder(BorderFactory.createEmptyBorder());
         dataFimField.setBorder(BorderFactory.createEmptyBorder());
@@ -46,7 +56,18 @@ public class JanCadTurma extends JFrame {
         profComboBox.setBorder(BorderFactory.createEmptyBorder());
         cursoComboBox.setBorder(BorderFactory.createEmptyBorder());
 
-        cadastrarButton.addActionListener(e -> cadastrar());
+        cadastrarButton.addActionListener(e -> {
+            try {
+                cadastrar();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        dataFormatter.setPlaceholderCharacter('0');
+        dataFormatter2.setPlaceholderCharacter('0');
+        dataFormatter2.install((JFormattedTextField) dataIniField);
+        dataFormatter.install((JFormattedTextField) dataFimField);
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setContentPane(panel);
@@ -62,8 +83,8 @@ public class JanCadTurma extends JFrame {
         });
     }
 
-    private void cadastrar() {
-        controladorPrincipal.cadastrarTurma(horarioField.getText(), Integer.parseInt(limiteAluField.getText()), Date.valueOf(dataIniField.getText()), Date.valueOf(dataFimField.getText()), (Professor) profComboBox.getSelectedItem(), (Curso) cursoComboBox.getSelectedItem());
+    private void cadastrar() throws ParseException {
+        controladorPrincipal.cadastrarTurma(horarioField.getText(), Integer.parseInt(limiteAluField.getText()), dateFormat.parse(dataIniField.getText()), dateFormat.parse(dataFimField.getText()), (Professor) profComboBox.getSelectedItem(), (Curso) cursoComboBox.getSelectedItem());
         horarioField.setText("");
         limiteAluField.setText("");
         dataIniField.setText("");
@@ -102,10 +123,6 @@ public class JanCadTurma extends JFrame {
         panel.add(cadastrarButton, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        dataFimField = new JTextField();
-        panel.add(dataFimField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
-        dataIniField = new JTextField();
-        panel.add(dataIniField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         limiteAluField = new JTextField();
         panel.add(limiteAluField, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         horarioField = new JTextField();
@@ -144,6 +161,10 @@ public class JanCadTurma extends JFrame {
         label6.setForeground(new Color(-257));
         label6.setText("Curso:");
         panel.add(label6, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        dataIniField = new JFormattedTextField();
+        panel.add(dataIniField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
+        dataFimField = new JFormattedTextField();
+        panel.add(dataFimField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
     }
 
     /**

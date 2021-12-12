@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 
 public class JanCadCurso extends JFrame {
     protected JPanel panel;
@@ -19,6 +20,10 @@ public class JanCadCurso extends JFrame {
 
     public JanCadCurso(ControladorPrincipal controladorPrincipal) {
         super("Curso");
+
+        URL url = this.getClass().getResource("/ifescol.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(image);
 
         nomeTextfield.setDocument(new Reg());
         chTextfield.setDocument(new Reg2());

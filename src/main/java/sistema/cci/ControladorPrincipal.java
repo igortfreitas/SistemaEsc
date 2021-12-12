@@ -1,7 +1,7 @@
 package sistema.cci;
 
 /**
- * @author Igor T Freitas e Kaua Victor
+ * @author Igor T Freitas, Kaua Victor e Samara Amorim
  */
 
 import sistema.cdp.Curso;
@@ -58,7 +58,7 @@ public class ControladorPrincipal {
         janCadProfessor.setVisible(true);
         janPrincipal.setVisible(false);
     }
-    public void exibirJanCadTurma(){
+    public void exibirJanCadTurma() throws ParseException {
         if (janCadTurma == null) janCadTurma = new JanCadTurma(this);
         janCadTurma.setVisible(true);
         janPrincipal.setVisible(false);
@@ -66,18 +66,22 @@ public class ControladorPrincipal {
 
     public void cadastrarCurso(String nome, int ch){
         aplGerenciarCurso.cadastrarCurso(nome, ch);
+        JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
         exibirJanPrincipal();
     }
     public void cadastrarProfessor(String nome, Date dataNasc, long cpf, String titulacao){
         aplGerenciarPessoas.cadastrarProfessor(nome, dataNasc, cpf, titulacao);
+        JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
         exibirJanPrincipal();
     }
     public void cadastrarAluno(String nome, Date dataNasc, long cpf){
         aplGerenciarPessoas.cadastrarAluno(nome, dataNasc, cpf);
+        JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
         exibirJanPrincipal();
     }
     public void cadastrarTurma(String horario, int limiteAluno, Date dataInicio, Date dataFim, Professor professor, Curso curso){
         aplGerenciarCurso.cadastrarTurma(horario, limiteAluno, dataInicio, dataFim, professor, curso);
+        JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso!");
         exibirJanPrincipal();
     }
 }

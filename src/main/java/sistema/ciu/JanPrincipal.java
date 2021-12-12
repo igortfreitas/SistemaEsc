@@ -5,6 +5,7 @@ import sistema.cci.ControladorPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.text.ParseException;
 
 public class JanPrincipal extends JFrame {
@@ -17,6 +18,11 @@ public class JanPrincipal extends JFrame {
 
     public JanPrincipal(ControladorPrincipal controladorPrincipal) {
         super("SistemaEscolar");
+
+        URL url = this.getClass().getResource("/ifescol.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(image);
+
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setResizable(false);
@@ -37,7 +43,13 @@ public class JanPrincipal extends JFrame {
                 ex.printStackTrace();
             }
         });
-        turmaButton.addActionListener(e -> controladorPrincipal.exibirJanCadTurma());
+        turmaButton.addActionListener(e -> {
+            try {
+                controladorPrincipal.exibirJanCadTurma();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
 

@@ -10,6 +10,7 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -25,6 +26,10 @@ public class JanCadAluno extends JFrame {
     private final MaskFormatter dataFormatter = new MaskFormatter("####-##-##");
 
     public JanCadAluno(ControladorPrincipal controladorPrincipal) throws ParseException {
+
+        URL url = this.getClass().getResource("/ifescol.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(image);
 
         nomeField.setBorder(BorderFactory.createEmptyBorder());
         cpfField.setBorder(BorderFactory.createEmptyBorder());
